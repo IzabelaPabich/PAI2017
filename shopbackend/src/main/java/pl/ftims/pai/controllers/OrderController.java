@@ -8,6 +8,8 @@ import pl.ftims.pai.dtos.NewOrderData;
 import pl.ftims.pai.entities.Order;
 import pl.ftims.pai.services.OrderService;
 
+import java.util.List;
+
 @RestController
 public class OrderController {
 
@@ -26,4 +28,7 @@ public class OrderController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/orders")
+    public List<Order> listOrders() { return orderService.getAllOrders();}
 }

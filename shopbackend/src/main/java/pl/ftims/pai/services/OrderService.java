@@ -9,6 +9,8 @@ import pl.ftims.pai.entities.Product;
 import pl.ftims.pai.repositories.OrderRepository;
 import pl.ftims.pai.repositories.ProductRepository;
 
+import java.util.List;
+
 @Service
 public class OrderService {
 
@@ -34,5 +36,9 @@ public class OrderService {
         newOrder.setQuantity(orderData.getQuantity());
         newOrder.setOrderedProduct(productToOrder);
         return orderRepository.save(newOrder);
+    }
+
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
     }
 }
