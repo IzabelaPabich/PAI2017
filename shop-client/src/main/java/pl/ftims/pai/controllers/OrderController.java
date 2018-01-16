@@ -40,11 +40,11 @@ public class OrderController {
     ModelMapper modelMapper;
 
 
-    @GetMapping("/order")
-    public String getOrder(Model model) {
-        List<Product> productList = Arrays.asList(productClient.getProducts());
-        model.addAttribute("products", productList);
-        return "new_order";
+    @GetMapping("/orders")
+    public String getOrders(Model model) {
+        List<Order> orderList = Arrays.asList(orderClient.getOrders());
+        model.addAttribute("orders", orderList);
+        return "orders";
     }
 
     @GetMapping("/new_order")
@@ -64,6 +64,8 @@ public class OrderController {
 
         Order returnedOrder = orderClient.postNewOrder(newOrder);
 
+        List<Product> productList = Arrays.asList(productClient.getProducts());
+        model.addAttribute("products", productList);
         model.addAttribute("newOrder", returnedOrder);
         return "new_order";
     }

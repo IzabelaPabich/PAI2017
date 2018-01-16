@@ -47,7 +47,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="/hello">Strona główna</a></li>
                 <li class="active"><a href="/products">Produkty</a></li>
-                <li><a href="/order">Zamówienia</a></li>
+                <li><a href="/orders">Zamówienia</a></li>
                 <li><a href="/new_order">Złóż zamówienie</a></li>
             </ul>
         </div>

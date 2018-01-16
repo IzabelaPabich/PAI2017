@@ -22,7 +22,8 @@ import java.io.IOException;
 @Component
 public class OrderClient {
 
-    private final String url;
+    private final String url_post;
+    private final String url_get;
 
     RestTemplate restTemplate;
 
@@ -30,8 +31,9 @@ public class OrderClient {
     ObjectMapper mapper = new ObjectMapper();
 
     @Autowired
-    public OrderClient(@Value("${neworder.service.url}") final String url) {
-        this.url = url;
+    public OrderClient(@Value("${neworder.service.url}") final String url_post, @Value("${orders.service.url}") final String url_get) {
+        this.url_post = url_post;
+        this.url_get = url_get;
     }
 
     public Order postNewOrder(NewOrderData newOrderData) throws IOException, JSONException {
@@ -45,7 +47,7 @@ public class OrderClient {
         HttpEntity<String> entity = new HttpEntity(requestJson,headers);
 
         restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
+        ResponseEntity<String> response = restTemplate.postForEntity(url_post, entity, String.class);
         System.out.println(response.toString());
 
         if (response.getStatusCode() == HttpStatus.CREATED) {
@@ -55,5 +57,12 @@ public class OrderClient {
             //userJson pusty
         }
         return mapper.readValue(userJson.toString(), Order.class);
+    }
+
+    public Order[] getOrders() {
+        restTemplate = new RestTemplate();
+        Order[] orders;
+        orders = restTemplate.getForObject(url_get, Order[].class);
+        return orders;
     }
 }

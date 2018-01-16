@@ -42,7 +42,7 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/hello">Strona główna</a></li>
                 <li><a href="/products">Produkty</a></li>
-                <li><a href="/order">Zamówienia</a></li>
+                <li><a href="/orders">Zamówienia</a></li>
                 <li><a href="/new_order">Złóż zamówienie</a></li>
             </ul>
         </div>
@@ -52,7 +52,7 @@
 <div class="container-fluid text-center">
     <div class="row content">
         <div class="col-lg-12 text-left">
-            <h3>Welcome ${message}</h3>
+            <h3>Klient dla webservice'u oddziału</h3>
         </div>
     </div>
 </div>

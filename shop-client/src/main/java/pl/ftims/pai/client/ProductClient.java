@@ -18,7 +18,7 @@ public class ProductClient {
 
 
     @Autowired
-    public  ProductClient(@Value("${product.service.url}") final String url) {
+    public  ProductClient(@Value("${products.service.url}") final String url) {
         this.url = url;
     }
 
