@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="pai2017Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="pai2017Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="LOCALIZATION" EntityType="pai2017Model.LOCALIZATION" />
+    <EntitySet Name="ORDER" EntityType="pai2017Model.ORDER" />
+    <EntitySet Name="ORDERSTATUS" EntityType="pai2017Model.ORDERSTATUS" />
+    <EntitySet Name="STORE" EntityType="pai2017Model.STORE" />
+    <EntitySet Name="sysdiagrams" EntityType="pai2017Model.sysdiagrams" />
+    <AssociationSet Name="FK_STORE_LOCALIZATION" Association="pai2017Model.FK_STORE_LOCALIZATION">
+      <End Role="LOCALIZATION" EntitySet="LOCALIZATION" />
+      <End Role="STORE" EntitySet="STORE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ORDER_ORDERSTATUS" Association="pai2017Model.FK_ORDER_ORDERSTATUS">
+      <End Role="ORDERSTATUS" EntitySet="ORDERSTATUS" />
+      <End Role="ORDER" EntitySet="ORDER" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ORDER_STORE" Association="pai2017Model.FK_ORDER_STORE">
+      <End Role="STORE" EntitySet="STORE" />
+      <End Role="ORDER" EntitySet="ORDER" />
+    </AssociationSet>
+    <EntitySet Name="PRODUCT" EntityType="pai2017Model.PRODUCT" />
+    <EntitySet Name="PRODUCT_TYPE" EntityType="pai2017Model.PRODUCT_TYPE" />
+    <AssociationSet Name="FK_ORDER_PRODUCT" Association="pai2017Model.FK_ORDER_PRODUCT">
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+      <End Role="ORDER" EntitySet="ORDER" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PRODUCT__PRODUCT__173876EA" Association="pai2017Model.FK__PRODUCT__PRODUCT__173876EA">
+      <End Role="PRODUCT_TYPE" EntitySet="PRODUCT_TYPE" />
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="LOCALIZATION">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="COUNTRY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CITY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="STREET" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NUMBER" Type="Int32" Nullable="false" />
+    <Property Name="POSTALCODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="STORE" Relationship="pai2017Model.FK_STORE_LOCALIZATION" FromRole="LOCALIZATION" ToRole="STORE" />
+  </EntityType>
+  <EntityType Name="ORDER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="PRODUCTID" Type="Int32" Nullable="false" />
+    <Property Name="STOREID" Type="Int32" Nullable="false" />
+    <Property Name="QUANTITY" Type="Int32" Nullable="false" />
+    <Property Name="ISREALIZED" Type="Boolean" Nullable="false" />
+    <Property Name="ORDERSTATUSID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ORDERSTATUS" Relationship="pai2017Model.FK_ORDER_ORDERSTATUS" FromRole="ORDER" ToRole="ORDERSTATUS" />
+    <NavigationProperty Name="STORE" Relationship="pai2017Model.FK_ORDER_STORE" FromRole="ORDER" ToRole="STORE" />
+    <NavigationProperty Name="PRODUCT" Relationship="pai2017Model.FK_ORDER_PRODUCT" FromRole="ORDER" ToRole="PRODUCT" />
+  </EntityType>
+  <EntityType Name="ORDERSTATUS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DESCRIPTION" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ORDER" Relationship="pai2017Model.FK_ORDER_ORDERSTATUS" FromRole="ORDERSTATUS" ToRole="ORDER" />
+  </EntityType>
+  <EntityType Name="STORE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LOCALIZATIONID" Type="Int32" Nullable="false" />
+    <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="PHONENUMBER" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="WEBSITE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="LOCALIZATION" Relationship="pai2017Model.FK_STORE_LOCALIZATION" FromRole="STORE" ToRole="LOCALIZATION" />
+    <NavigationProperty Name="ORDER" Relationship="pai2017Model.FK_ORDER_STORE" FromRole="STORE" ToRole="ORDER" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_STORE_LOCALIZATION">
+    <End Type="pai2017Model.LOCALIZATION" Role="LOCALIZATION" Multiplicity="1" />
+    <End Type="pai2017Model.STORE" Role="STORE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOCALIZATION">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="STORE">
+        <PropertyRef Name="LOCALIZATIONID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ORDER_ORDERSTATUS">
+    <End Type="pai2017Model.ORDERSTATUS" Role="ORDERSTATUS" Multiplicity="1" />
+    <End Type="pai2017Model.ORDER" Role="ORDER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ORDERSTATUS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ORDER">
+        <PropertyRef Name="ORDERSTATUSID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ORDER_STORE">
+    <End Type="pai2017Model.STORE" Role="STORE" Multiplicity="1" />
+    <End Type="pai2017Model.ORDER" Role="ORDER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="STORE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ORDER">
+        <PropertyRef Name="STOREID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="PRODUCT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PRODUCTTYPEID" Type="Int32" Nullable="false" />
+    <Property Name="NAME" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="COLOR" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="QUANTITY" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ORDER" Relationship="pai2017Model.FK_ORDER_PRODUCT" FromRole="PRODUCT" ToRole="ORDER" />
+    <NavigationProperty Name="PRODUCT_TYPE" Relationship="pai2017Model.FK__PRODUCT__PRODUCT__173876EA" FromRole="PRODUCT" ToRole="PRODUCT_TYPE" />
+  </EntityType>
+  <EntityType Name="PRODUCT_TYPE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NAME" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PRODUCT" Relationship="pai2017Model.FK__PRODUCT__PRODUCT__173876EA" FromRole="PRODUCT_TYPE" ToRole="PRODUCT" />
+  </EntityType>
+  <Association Name="FK_ORDER_PRODUCT">
+    <End Type="pai2017Model.PRODUCT" Role="PRODUCT" Multiplicity="1" />
+    <End Type="pai2017Model.ORDER" Role="ORDER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ORDER">
+        <PropertyRef Name="PRODUCTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PRODUCT__PRODUCT__173876EA">
+    <End Type="pai2017Model.PRODUCT_TYPE" Role="PRODUCT_TYPE" Multiplicity="1" />
+    <End Type="pai2017Model.PRODUCT" Role="PRODUCT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT_TYPE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PRODUCT">
+        <PropertyRef Name="PRODUCTTYPEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

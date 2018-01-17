@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="pai2017Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="LOCALIZATION">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COUNTRY" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CITY" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="STREET" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="NUMBER" Type="int" Nullable="false" />
+    <Property Name="POSTALCODE" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ORDER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="PRODUCTID" Type="int" Nullable="false" />
+    <Property Name="STOREID" Type="int" Nullable="false" />
+    <Property Name="QUANTITY" Type="int" Nullable="false" />
+    <Property Name="ISREALIZED" Type="bit" Nullable="false" />
+    <Property Name="ORDERSTATUSID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ORDERSTATUS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="NAME" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="200" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PRODUCT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PRODUCTTYPEID" Type="int" Nullable="false" />
+    <Property Name="NAME" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="500" />
+    <Property Name="COLOR" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="QUANTITY" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PRODUCT_TYPE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NAME" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="STORE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LOCALIZATIONID" Type="int" Nullable="false" />
+    <Property Name="NAME" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="500" />
+    <Property Name="PHONENUMBER" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="EMAIL" Type="varchar" MaxLength="50" />
+    <Property Name="WEBSITE" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK__PRODUCT__PRODUCT__173876EA">
+    <End Role="PRODUCT_TYPE" Type="Self.PRODUCT_TYPE" Multiplicity="1" />
+    <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT_TYPE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PRODUCT">
+        <PropertyRef Name="PRODUCTTYPEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ORDER_ORDERSTATUS">
+    <End Role="ORDERSTATUS" Type="Self.ORDERSTATUS" Multiplicity="1" />
+    <End Role="ORDER" Type="Self.ORDER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ORDERSTATUS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ORDER">
+        <PropertyRef Name="ORDERSTATUSID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ORDER_PRODUCT">
+    <End Role="PRODUCT" Type="Self.PRODUCT" Multiplicity="1" />
+    <End Role="ORDER" Type="Self.ORDER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCT">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ORDER">
+        <PropertyRef Name="PRODUCTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ORDER_STORE">
+    <End Role="STORE" Type="Self.STORE" Multiplicity="1" />
+    <End Role="ORDER" Type="Self.ORDER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="STORE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ORDER">
+        <PropertyRef Name="STOREID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_STORE_LOCALIZATION">
+    <End Role="LOCALIZATION" Type="Self.LOCALIZATION" Multiplicity="1" />
+    <End Role="STORE" Type="Self.STORE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOCALIZATION">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="STORE">
+        <PropertyRef Name="LOCALIZATIONID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="pai2017ModelStoreContainer">
+    <EntitySet Name="LOCALIZATION" EntityType="Self.LOCALIZATION" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ORDER" EntityType="Self.ORDER" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ORDERSTATUS" EntityType="Self.ORDERSTATUS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PRODUCT" EntityType="Self.PRODUCT" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PRODUCT_TYPE" EntityType="Self.PRODUCT_TYPE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="STORE" EntityType="Self.STORE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__PRODUCT__PRODUCT__173876EA" Association="Self.FK__PRODUCT__PRODUCT__173876EA">
+      <End Role="PRODUCT_TYPE" EntitySet="PRODUCT_TYPE" />
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ORDER_ORDERSTATUS" Association="Self.FK_ORDER_ORDERSTATUS">
+      <End Role="ORDERSTATUS" EntitySet="ORDERSTATUS" />
+      <End Role="ORDER" EntitySet="ORDER" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ORDER_PRODUCT" Association="Self.FK_ORDER_PRODUCT">
+      <End Role="PRODUCT" EntitySet="PRODUCT" />
+      <End Role="ORDER" EntitySet="ORDER" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ORDER_STORE" Association="Self.FK_ORDER_STORE">
+      <End Role="STORE" EntitySet="STORE" />
+      <End Role="ORDER" EntitySet="ORDER" />
+    </AssociationSet>
+    <AssociationSet Name="FK_STORE_LOCALIZATION" Association="Self.FK_STORE_LOCALIZATION">
+      <End Role="LOCALIZATION" EntitySet="LOCALIZATION" />
+      <End Role="STORE" EntitySet="STORE" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

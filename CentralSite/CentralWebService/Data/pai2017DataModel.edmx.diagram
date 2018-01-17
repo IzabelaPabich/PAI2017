@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="77c2d9f2fe0445d3a051757cf7dcb85d" Name="Diagram1">
+        <EntityTypeShape EntityType="pai2017Model.LOCALIZATION" Width="1.5" PointX="1.375" PointY="7.625" />
+        <EntityTypeShape EntityType="pai2017Model.ORDER" Width="1.5" PointX="5.875" PointY="1" />
+        <EntityTypeShape EntityType="pai2017Model.ORDERSTATUS" Width="1.5" PointX="3.625" PointY="4.875" />
+        <EntityTypeShape EntityType="pai2017Model.STORE" Width="1.5" PointX="3.625" PointY="7.375" />
+        <EntityTypeShape EntityType="pai2017Model.sysdiagrams" Width="1.5" PointX="6" PointY="4.625" />
+        <AssociationConnector Association="pai2017Model.FK_STORE_LOCALIZATION" />
+        <AssociationConnector Association="pai2017Model.FK_ORDER_ORDERSTATUS" />
+        <AssociationConnector Association="pai2017Model.FK_ORDER_STORE" />
+        <EntityTypeShape EntityType="pai2017Model.PRODUCT" Width="1.5" PointX="3.625" PointY="1.125" />
+        <EntityTypeShape EntityType="pai2017Model.PRODUCT_TYPE" Width="1.5" PointX="1.375" PointY="1.5" />
+        <AssociationConnector Association="pai2017Model.FK_ORDER_PRODUCT" />
+        <AssociationConnector Association="pai2017Model.FK__PRODUCT__PRODUCT__173876EA" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

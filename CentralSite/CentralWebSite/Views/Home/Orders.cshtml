@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CentralWebSite.CentralWebService.OrderDataModel>
+
+@{
+    ViewBag.Title = "Orders";
+}
+
+<h2>Orders</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StoreId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderStatusId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsRealized)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StoreId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderStatusId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsRealized)
+        </td>
+        <td>
+            @Html.ActionLink("Accept", "AcceptOrder", new { id=item.Id }) |
+            @Html.ActionLink("Decline", "DeclineOrder", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

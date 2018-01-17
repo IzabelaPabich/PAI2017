@@ -1,3 +1,11 @@
 **/.idea
 **/target
 **/*.iml
+**/*.com
+**/*.class
+**/*.dll
+**/*.exe
+**/*.pdb
+**/*.dll.config
+**/*.cache
+**/*.suo
