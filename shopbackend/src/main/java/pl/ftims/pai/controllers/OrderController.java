@@ -29,6 +29,8 @@ public class OrderController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/orders")
-    public List<Order> listOrders() { return orderService.getAllOrders();}
+    @RequestMapping(method = RequestMethod.GET, path = "/allOrders")
+    public List<Order> listAllOrders() {
+        return orderService.getAllOrders();
+    }
 }

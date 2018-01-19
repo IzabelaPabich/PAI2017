@@ -16,7 +16,7 @@ public class Product implements Serializable {
 
     private String color;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private ProductType productType;
 
     public Product() {

@@ -23,4 +23,9 @@ public class ProductController {
     public List<Product> listProducts() {
         return productService.getAllProducts();
     }
+
+    @RequestMapping(method = RequestMethod.PUT, path = "/updateProducts")
+    public void updateProducts() {
+        productService.updateProductsList();
+    }
 }
